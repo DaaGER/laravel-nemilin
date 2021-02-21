@@ -1,4 +1,5 @@
 {
+  "version": "0.1",
   "name": "daager/laravel-nemilin",
   "description": "Laravel package for Nemilin API",
   "keywords": [
@@ -23,13 +24,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Spatie\\Skeleton\\": "src",
-      "Spatie\\Skeleton\\Database\\Factories\\": "database/factories"
+      "DaaGER\\Nemilin\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Spatie\\Skeleton\\Tests\\": "tests"
+      "DaaGER\\Nemilin\\Tests\\": "tests"
     }
   },
   "scripts": {
@@ -42,7 +42,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "DaaGER\\Nemilin\\NemilinerviceProvider"
+        "DaaGER\\Nemilin\\NemilinServiceProvider"
       ],
       "aliases": {
         "Nemilin": "DaaGER\\Nemilin\\Facade\\Nemilin"
