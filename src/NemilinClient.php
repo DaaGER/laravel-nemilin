@@ -3,23 +3,19 @@
 
 namespace DaaGER\Nemilin;
 
-
-use Illuminate\Cache\Repository as CacheRepository;
 use Illuminate\Http\Client\Factory as Http;
 
 class NemilinClient
 {
     private $project_id;
-    private $cache;
     private $http;
     private $token;
     private $url = "https://nemilin.pro/API/v1";
     private $method;
     private $param;
 
-    public function __construct(CacheRepository $cache, Http $http)
+    public function __construct(Http $http)
     {
-        $this->cache = $cache;
         $this->http = $http;
     }
 
@@ -31,12 +27,10 @@ class NemilinClient
         $this->token = $token;
     }
 
+
     public function send(): string
     {
-        $url = $this->getUrl()."/".$this->getMethod()."/".$this->getProjectId();
-        if (!empty($this->getParam())) {
-            $url .= "/".$this->getParam();
-        }
+        $url = $this->buildUrl();
         $result = $this->http->withHeaders(['Authorization' => $this->token])
             ->asJson()
             ->get($url)
@@ -99,6 +93,19 @@ class NemilinClient
     public function setParam($param): void
     {
         $this->param = $param;
+    }
+
+    /**
+     * @return string
+     */
+    private function buildUrl(): string
+    {
+        $url = $this->getUrl()."/".$this->getMethod()."/".$this->getProjectId();
+        if (!empty($this->getParam())) {
+            $url .= "/".$this->getParam();
+        }
+
+        return $url;
     }
 
 
